@@ -1,63 +1,143 @@
-/*!
-    * Start Bootstrap - Creative v6.0.4 (https://startbootstrap.com/theme/creative)
-    * Copyright 2013-2020 Start Bootstrap
-    * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-creative/blob/master/LICENSE)
-    */
-    (function($) {
-  "use strict"; // Start of use strict
+/***************** Waypoints ******************/
 
-  // Smooth scrolling using jQuery easing
-  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      if (target.length) {
-        $('html, body').animate({
-          scrollTop: (target.offset().top - 72)
-        }, 1000, "easeInOutExpo");
-        return false;
-      }
-    }
-  });
+$(document).ready(function() {
 
-  // Closes responsive menu when a scroll trigger link is clicked
-  $('.js-scroll-trigger').click(function() {
-    $('.navbar-collapse').collapse('hide');
-  });
+	$('.wp1').waypoint(function() {
+		$('.wp1').addClass('animated fadeInLeft');
+	}, {
+		offset: '75%'
+	});
+	$('.wp2').waypoint(function() {
+		$('.wp2').addClass('animated fadeInUp');
+	}, {
+		offset: '75%'
+	});
+	$('.wp3').waypoint(function() {
+		$('.wp3').addClass('animated fadeInDown');
+	}, {
+		offset: '55%'
+	});
+	$('.wp4').waypoint(function() {
+		$('.wp4').addClass('animated fadeInDown');
+	}, {
+		offset: '75%'
+	});
+	$('.wp5').waypoint(function() {
+		$('.wp5').addClass('animated fadeInUp');
+	}, {
+		offset: '75%'
+	});
+	$('.wp6').waypoint(function() {
+		$('.wp6').addClass('animated fadeInDown');
+	}, {
+		offset: '75%'
+	});
 
-  // Activate scrollspy to add active class to navbar items on scroll
-  $('body').scrollspy({
-    target: '#mainNav',
-    offset: 75
-  });
+});
 
-  // Collapse Navbar
-  var navbarCollapse = function() {
-    if ($("#mainNav").offset().top > 100) {
-      $("#mainNav").addClass("navbar-scrolled");
+/***************** Slide-In Nav ******************/
+
+$(window).load(function() {
+
+	$('.nav_slide_button').click(function() {
+		$('.pull').slideToggle();
+	});
+
+});
+
+/***************** Smooth Scrolling ******************/
+
+$(function() {
+
+	$('a[href*=#]:not([href=#])').click(function() {
+		if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+
+			var target = $(this.hash);
+			target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+			if (target.length) {
+				$('html,body').animate({
+					scrollTop: target.offset().top
+				}, 2000);
+				return false;
+			}
+		}
+	});
+
+});
+
+/***************** Nav Transformicon ******************/
+
+document.querySelector("#nav-toggle").addEventListener("click", function() {
+	this.classList.toggle("active");
+});
+
+/***************** Overlays ******************/
+
+$(document).ready(function(){
+    if (Modernizr.touch) {
+        // show the close overlay button
+        $(".close-overlay").removeClass("hidden");
+        // handle the adding of hover class when clicked
+        $(".img").click(function(e){
+            if (!$(this).hasClass("hover")) {
+                $(this).addClass("hover");
+            }
+        });
+        // handle the closing of the overlay
+        $(".close-overlay").click(function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if ($(this).closest(".img").hasClass("hover")) {
+                $(this).closest(".img").removeClass("hover");
+            }
+        });
     } else {
-      $("#mainNav").removeClass("navbar-scrolled");
+        // handle the mouseenter functionality
+        $(".img").mouseenter(function(){
+            $(this).addClass("hover");
+        })
+        // handle the mouseleave functionality
+        .mouseleave(function(){
+            $(this).removeClass("hover");
+        });
     }
-  };
-  // Collapse now if page is not at top
-  navbarCollapse();
-  // Collapse the navbar when page is scrolled
-  $(window).scroll(navbarCollapse);
+});
 
-  // Magnific popup calls
-  $('#portfolio').magnificPopup({
-    delegate: 'a',
-    type: 'image',
-    tLoading: 'Loading image #%curr%...',
-    mainClass: 'mfp-img-mobile',
-    gallery: {
-      enabled: true,
-      navigateByImgClick: true,
-      preload: [0, 1]
-    },
-    image: {
-      tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
-    }
-  });
+/***************** Flexsliders ******************/
 
-})(jQuery); // End of use strict
+$(window).load(function() {
+
+	$('#portfolioSlider').flexslider({
+		animation: "slide",
+		directionNav: false,
+		controlNav: true,
+		touch: false,
+		pauseOnHover: true,
+		start: function() {
+			$.waypoints('refresh');
+		}
+	});
+
+	$('#servicesSlider').flexslider({
+		animation: "slide",
+		directionNav: false,
+		controlNav: true,
+		touch: true,
+		pauseOnHover: true,
+		start: function() {
+			$.waypoints('refresh');
+		}
+	});
+
+	$('#teamSlider').flexslider({
+		animation: "slide",
+		directionNav: false,
+		controlNav: true,
+		touch: true,
+		pauseOnHover: true,
+		start: function() {
+			$.waypoints('refresh');
+		}
+	});
+
+});
